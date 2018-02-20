@@ -5,6 +5,7 @@ namespace Styde\Tests;
 use Styde\Html\{
     Fieldset,
     Form,
+    Input,
     Legend,
     Textarea
 };
@@ -22,6 +23,10 @@ class CompositeTest extends TestCase
 
         $contentFieldset->add($legend);
 
+        $input = new Input('title');
+
+        $contentFieldset->add($input);
+
         $textarea = new Textarea('content');
 
         $contentFieldset->add($textarea);
@@ -32,11 +37,17 @@ class CompositeTest extends TestCase
 <form>
     <fieldset>
         <legend>Contenido</legend>
+        <input name="title">
         <textarea name="content"></textarea>
     </fieldset>
 </form>
 HTML;
 
-        $this->assertSame($expected, $form->render());
+        $this->assertSame($this->removeIndentation($expected), $form->render());
+    }
+
+    private function removeIndentation($expected)
+    {
+        return str_replace([PHP_EOL, '    '], '', $expected);
     }
 }

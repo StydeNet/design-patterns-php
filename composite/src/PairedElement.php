@@ -2,6 +2,8 @@
 
 namespace Styde\Html;
 
+use Exception;
+
 abstract class PairedElement
 {
     protected $children = [];
@@ -34,6 +36,27 @@ abstract class PairedElement
 
     public function render()
     {
-        return '<'.$this->tagName().'></'.$this->tagName().'>';
+        $html = '<'.$this->tagName().$this->attributes().'>';
+
+        foreach ($this->children as $child) {
+            if (is_string($child)) {
+                $html .= $child;
+            } else if ($child instanceof PairedElement) {
+                $html .= $child->render();
+            } else if ($child instanceof VoidElement) {
+                $html .= $child->renderTag();
+            } else {
+                throw new Exception('Format not supported: '.get_class($child));
+            }
+        }
+        
+        $html .= '</'.$this->tagName().'>';
+
+        return $html;
+    }
+
+    public function attributes()
+    {
+        return '';
     }
 }
