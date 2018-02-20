@@ -2,8 +2,9 @@
 
 namespace Styde\Tests;
 
-use Styde\Html\Fieldset;
 use Styde\Html\Form;
+use Styde\Html\Input;
+use Styde\Html\Fieldset;
 
 class FormTest extends TestCase
 {
@@ -12,9 +13,11 @@ class FormTest extends TestCase
     {
         $form = new Form;
 
-        $form->add('Element');
+        $input = new Input('title');
 
-        $this->assertSame('Element', $form->getChild(0));
+        $form->add($input);
+
+        $this->assertSame($input, $form->getChild(0));
     }
 
     /** @test */
@@ -30,11 +33,13 @@ class FormTest extends TestCase
     {
         $form = new Form;
 
-        $form->add('Element');
+        $fieldset = new Fieldset;
+
+        $form->add($fieldset);
 
         $this->assertCount(1, $form->getChildren());
 
-        $form->remove('Element');
+        $form->remove($fieldset);
 
         $this->assertCount(0, $form->getChildren());
     }

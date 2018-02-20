@@ -3,6 +3,8 @@
 namespace Styde\Tests;
 
 use Styde\Html\Fieldset;
+use Styde\Html\Input;
+use Styde\Html\Legend;
 
 class FieldsetTest extends TestCase
 {
@@ -11,9 +13,10 @@ class FieldsetTest extends TestCase
     {
         $fieldset = new Fieldset;
 
-        $fieldset->add('Element');
+        $legend = new Legend('Test');
+        $fieldset->add($legend);
 
-        $this->assertSame('Element', $fieldset->getChild(0));
+        $this->assertSame($legend, $fieldset->getChild(0));
     }
 
     /** @test */
@@ -29,11 +32,13 @@ class FieldsetTest extends TestCase
     {
         $fieldset = new Fieldset;
 
-        $fieldset->add('Element');
+        $input = new Input('name');
+
+        $fieldset->add($input);
 
         $this->assertCount(1, $fieldset->getChildren());
 
-        $fieldset->remove('Element');
+        $fieldset->remove($input);
 
         $this->assertCount(0, $fieldset->getChildren());
     }

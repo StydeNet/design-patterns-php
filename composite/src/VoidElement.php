@@ -2,17 +2,10 @@
 
 namespace Styde\Html;
 
-abstract class VoidElement
+abstract class VoidElement extends BaseElement
 {
-    abstract public function tagName();
-
-    public function renderTag()
+    public function render()
     {
         return '<'.$this->tagName().$this->attributes().'>';
-    }
-
-    public function attributes()
-    {
-        return '';
     }
 }
