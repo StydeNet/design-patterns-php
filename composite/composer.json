@@ -1,0 +1,27 @@
+{
+    "name": "stydenet/composite-pattern",
+    "description": "Lesson about the Composite pattern for Styde.net.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duilio Palacios",
+            "email": "duilio@styde.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Styde\\Html\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Styde\\Tests\\": "tests/"
+        }
+    }
+}
