@@ -11,6 +11,11 @@ class TextElement implements Element
         $this->text = $text;
     }
 
+    public function getComposite()
+    {
+        return null;
+    }
+
     public function render()
     {
         return $this->text;

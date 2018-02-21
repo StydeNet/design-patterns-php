@@ -36,6 +36,11 @@ abstract class PairedElement extends BaseElement
         return $this->children;
     }
 
+    public function getComposite()
+    {
+        return $this;
+    }
+
     public function render()
     {
         $html = '<'.$this->tagName().$this->attributes().'>';

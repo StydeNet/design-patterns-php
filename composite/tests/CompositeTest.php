@@ -3,7 +3,7 @@
 namespace Styde\Tests;
 
 use Styde\Html\{
-    Fieldset, Form, Input, Legend, Textarea, TextElement
+    Fieldset, Form, Input, Label, Legend, Textarea, TextElement
 };
 
 class CompositeTest extends TestCase
