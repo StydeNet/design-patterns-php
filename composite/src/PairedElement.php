@@ -8,13 +8,13 @@ abstract class PairedElement extends BaseElement
 {
     protected $children = [];
     
-    public function add(Element $element)
+    public function add(Element $child)
     {
-        if (is_string($element)) {
-            $element = new TextElement($element);
-        }
+        $this->children[] = $child;
 
-        $this->children[] = $element;
+        $child->setParent($this);
+
+        $this->clearCache();
     }
 
     public function getChild($index)
@@ -43,6 +43,10 @@ abstract class PairedElement extends BaseElement
 
     public function render()
     {
+        if ($this->cachedHtml) {
+            return $this->cachedHtml;
+        }
+
         $html = '<'.$this->tagName().$this->attributes().'>';
 
         foreach ($this->children as $child) {
@@ -51,6 +55,6 @@ abstract class PairedElement extends BaseElement
         
         $html .= '</'.$this->tagName().'>';
 
-        return $html;
+        return $this->cachedHtml = $html;
     }
 }
