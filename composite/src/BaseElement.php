@@ -2,7 +2,7 @@
 
 namespace Styde\Html;
 
-abstract class BaseElement implements Element
+abstract class BaseElement
 {
     protected $parent;
 
@@ -10,12 +10,11 @@ abstract class BaseElement implements Element
 
     abstract public function tagName();
     
-    public function attributes()
-    {
-        return '';
-    }
+    abstract public function render();
+    
+    abstract public function getComposite();
 
-    public function setParent(Element $parent)
+    public function setParent(BaseElement $parent)
     {
         $this->parent = $parent;
     }

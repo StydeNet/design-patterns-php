@@ -2,7 +2,7 @@
 
 namespace Styde\Html;
 
-class TextElement implements Element
+class TextElement extends BaseElement
 {
     protected $text;
 
@@ -32,16 +32,8 @@ class TextElement implements Element
         return $this->text;
     }
 
-    public function clearCache()
+    public function tagName()
     {
-        // TODO: add a test for this implementation.
-        if ($this->parent) {
-            $this->parent->clearCache();
-        }
-    }
-
-    public function setParent(Element $parent)
-    {
-        $this->parent = $parent;
+        return '#text';
     }
 }

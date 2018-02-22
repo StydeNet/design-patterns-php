@@ -3,10 +3,9 @@
 namespace Styde\Tests;
 
 use Mockery;
-use Styde\Html\Form;
-use Styde\Html\PairedElement;
 use Styde\Html\TextElement;
 use Styde\Html\VoidElement;
+use Styde\Html\PairedElement;
 
 class CacheTest extends TestCase
 {

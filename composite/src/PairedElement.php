@@ -2,13 +2,13 @@
 
 namespace Styde\Html;
 
-use Exception;
-
 abstract class PairedElement extends BaseElement
 {
+    use HasAttributes;
+
     protected $children = [];
     
-    public function add(Element $child)
+    public function add(BaseElement $child)
     {
         $this->children[] = $child;
 
@@ -17,12 +17,12 @@ abstract class PairedElement extends BaseElement
         $this->clearCache();
     }
 
-    public function getChild($index)
+    public function getChild(int $index)
     {
         return $this->children[$index];
     }
 
-    public function remove($element)
+    public function remove(BaseElement $element)
     {
         $index = array_search($element, $this->children, true);
 
