@@ -2,6 +2,7 @@
 
 namespace Styde\Tests;
 
+use Styde\Builders\BootstrapBuilder;
 use Styde\Forms\LoginForm;
 
 class LoginFormTest extends TestCase
@@ -9,7 +10,9 @@ class LoginFormTest extends TestCase
     /** @test */
     function it_builds_a_login_form()
     {
-        $loginForm = new LoginForm;
+        $builder = new BootstrapBuilder;
+
+        $loginForm = new LoginForm($builder);
 
         $form = $loginForm->build();
 
