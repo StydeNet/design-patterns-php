@@ -13,15 +13,6 @@ class TextElement implements Element
         $this->text = $text;
     }
 
-    public function replaceText($text)
-    {
-        // TODO: Add a test for this implementation.
-
-        $this->text = $text;
-
-        $this->clearCache();
-    }
-
     public function getComposite()
     {
         return null;

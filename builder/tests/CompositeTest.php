@@ -41,9 +41,4 @@ HTML;
 
         $this->assertSame($this->removeIndentation($expected), $form->render());
     }
-
-    private function removeIndentation($expected)
-    {
-        return str_replace([PHP_EOL, '    '], '', $expected);
-    }
 }

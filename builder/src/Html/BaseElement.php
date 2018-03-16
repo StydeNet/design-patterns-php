@@ -4,16 +4,27 @@ namespace Styde\Html;
 
 abstract class BaseElement implements Element
 {
+    /**
+     * @var \Styde\Html\Element
+     */
     protected $parent;
 
+    /**
+     * @var \Styde\Html\HtmlAttributes
+     */
+    protected $attributes;
+
+    /**
+     * @var string
+     */
     protected $cachedHtml;
 
-    abstract public function tagName();
-    
-    public function attributes()
+    public function __construct(array $attributes = [])
     {
-        return '';
+        $this->attributes = new HtmlAttributes($attributes);
     }
+
+    abstract public function tagName();
 
     public function setParent(Element $parent)
     {

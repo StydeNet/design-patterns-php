@@ -4,8 +4,10 @@ namespace Styde\Html;
 
 class Legend extends PairedElement
 {
-    public function __construct(string $text)
+    public function __construct(string $text, array $attributes = [])
     {
+        parent::__construct($attributes);
+
         $this->add(new TextElement($text));
     }
 

@@ -2,10 +2,10 @@
 
 namespace Styde\Html;
 
-class Div extends PairedElement
+class Fieldset extends PairedElement
 {
     public function tagName()
     {
-        return 'div';
+        return 'fieldset';
     }
 }

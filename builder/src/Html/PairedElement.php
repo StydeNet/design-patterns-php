@@ -2,8 +2,6 @@
 
 namespace Styde\Html;
 
-use Exception;
-
 abstract class PairedElement extends BaseElement
 {
     protected $children = [];
@@ -47,7 +45,7 @@ abstract class PairedElement extends BaseElement
             return $this->cachedHtml;
         }
 
-        $html = '<'.$this->tagName().$this->attributes().'>';
+        $html = '<'.$this->tagName().$this->attributes->render().'>';
 
         foreach ($this->children as $child) {
             $html .= $child->render();

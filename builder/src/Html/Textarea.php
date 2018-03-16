@@ -4,20 +4,13 @@ namespace Styde\Html;
 
 class Textarea extends PairedElement
 {
-    private $name;
-
     public function __construct($name)
     {
-        $this->name = $name;
+        parent::__construct(['name' => $name]);
     }
 
     public function tagName()
     {
         return 'textarea';
-    }
-
-    public function attributes()
-    {
-        return sprintf(' name="%s"', $this->name);
     }
 }

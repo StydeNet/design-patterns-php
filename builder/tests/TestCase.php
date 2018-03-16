@@ -10,4 +10,9 @@ class TestCase extends \PHPUnit\Framework\TestCase
     {
         Mockery::close();
     }
+
+    protected function removeIndentation($expected)
+    {
+        return str_replace([PHP_EOL, '    '], '', $expected);
+    }
 }
