@@ -23,7 +23,7 @@ class LoginForm
 
     public function build()
     {
-        $this->addCsrfInput();
+        $this->addHiddenInput('csrf_token', 'token_here');
 
         $this->addField('email', 'email', 'Email address', ['placeholder' => 'Email address', 'autofocus']);
 
@@ -69,11 +69,9 @@ class LoginForm
         $this->form->add($button);
     }
 
-    protected function addCsrfInput()
+    protected function addHiddenInput($name, $value)
     {
-        $csrfInput = new Input('csrf_token', ['type' => 'hidden', 'name' => 'csrf_token', 'value' => 'token_here']);
-
-        $this->form->add($csrfInput);
+        $this->addInput('hidden', $name, ['value' => $value]);
     }
 
     protected function addLabel($id, $text)

@@ -15,7 +15,7 @@ class LoginFormTest extends TestCase
 
         $expected = <<<HTML
 <form action="/login" method="POST">
-    <input name="csrf_token" type="hidden" value="token_here">
+    <input name="csrf_token" type="hidden" id="csrf_token" class="form-control" required value="token_here">
     <label for="email" class="sr-only">Email address</label>
     <input name="email" type="email" id="email" class="form-control" required placeholder="Email address" autofocus>
     <label for="password" class="sr-only">Password</label>
