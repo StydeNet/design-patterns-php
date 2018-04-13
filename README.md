@@ -18,20 +18,20 @@ algunas de las técnicas que estamos explicando dentro del [Curso de Refactoriza
 
 ### Patrón Composite
 
-1. [Introducción](https://styde.net/introduccion-al-patron-composite/) - 4:25
-2. [Prueba de integración](https://styde.net/patron-composite-prueba-de-integracion/) - 5:35
-3. [Pruebas unitarias](https://styde.net/patron-composite-pruebas-unitarias/) - 10:40
-4. [Trabajando con elementos](https://styde.net/patron-composite-trabajando-con-elementos-de-forma-recursiva/) - 9:40
-5. [Aplicación de una interfaz común](https://styde.net/patron-composite-aplicacion-de-una-interfaz-comun/) - 11:55
-6. [Limitaciones](https://styde.net/limitaciones-en-el-uso-del-patron-composite/) - 13:50
-7. [Caché](https://styde.net/uso-de-cache-con-el-patron-composite/) - 19:50
+1. [Introducción](https://styde.net/introduccion-al-patron-composite/)
+2. [Prueba de integración](https://styde.net/patron-composite-prueba-de-integracion/)
+3. [Pruebas unitarias](https://styde.net/patron-composite-pruebas-unitarias/)
+4. [Trabajando con elementos](https://styde.net/patron-composite-trabajando-con-elementos-de-forma-recursiva/)
+5. [Aplicación de una interfaz común](https://styde.net/patron-composite-aplicacion-de-una-interfaz-comun/)
+6. [Limitaciones](https://styde.net/limitaciones-en-el-uso-del-patron-composite/)
+7. [Caché](https://styde.net/uso-de-cache-con-el-patron-composite/)
 8. [Implementación con clases abstractas](https://styde.net/patron-composite-implementacion-con-clases-abstractas-sin-interface/) - 8:55
 
 ### Patrón Builder
 
-9. [Simplificar la construcción de objetos](https://styde.net/simplificar-la-construccion-de-objetos-con-el-patron-builder/) - 18:55
-10. [Aplicación del Patrón Builder](https://styde.net/aplicacion-del-patron-builder-composicion-de-objetos/) - 15:05
-11. [Uso de interfaces o clases abstractas](https://styde.net/uso-de-interfaces-o-clases-abstractas-con-el-patron-builder/) - 8:35
+9. [Simplificar la construcción de objetos](https://styde.net/simplificar-la-construccion-de-objetos-con-el-patron-builder/)
+10. [Aplicación del Patrón Builder](https://styde.net/aplicacion-del-patron-builder-composicion-de-objetos/)
+11. [Uso de interfaces o clases abstractas](https://styde.net/uso-de-interfaces-o-clases-abstractas-con-el-patron-builder/)
 
 ### En Styde.net también puedes aprender a:
 
@@ -42,4 +42,4 @@ algunas de las técnicas que estamos explicando dentro del [Curso de Refactoriza
 - Escribir CSS de manera eficiente con el [Curso de Sass a fondo](https://styde.net/curso-de-sass/)
 - Y [mucho más](https://styde.net/cursos/)
 
-© 2016 - 2017 [Styde.net](https://styde.net/)
+© 2018 [Styde.net](https://styde.net/)
