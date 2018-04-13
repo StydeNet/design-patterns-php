@@ -25,7 +25,7 @@ algunas de las técnicas que estamos explicando dentro del [Curso de Refactoriza
 5. [Aplicación de una interfaz común](https://styde.net/patron-composite-aplicacion-de-una-interfaz-comun/)
 6. [Limitaciones](https://styde.net/limitaciones-en-el-uso-del-patron-composite/)
 7. [Caché](https://styde.net/uso-de-cache-con-el-patron-composite/)
-8. [Implementación con clases abstractas](https://styde.net/patron-composite-implementacion-con-clases-abstractas-sin-interface/) - 8:55
+8. [Implementación con clases abstractas](https://styde.net/patron-composite-implementacion-con-clases-abstractas-sin-interface/)
 
 ### Patrón Builder
 
