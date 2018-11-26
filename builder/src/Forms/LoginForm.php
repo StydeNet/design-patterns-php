@@ -2,16 +2,9 @@
 
 namespace Styde\Forms;
 
-class LoginForm
+class LoginForm extends Form
 {
-    protected $builder;
-
-    public function __construct($builder)
-    {
-        $this->builder = $builder;
-    }
-
-    public function build()
+    public function createForm()
     {
         $this->builder->addCsrfInput();
 

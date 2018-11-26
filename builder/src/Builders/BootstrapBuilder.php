@@ -4,18 +4,11 @@ namespace Styde\Builders;
 
 use Styde\Html\{Button, Div, Form, Input, Label, TextElement};
 
-class BootstrapBuilder
+class BootstrapBuilder extends FormBuilder
 {
-    protected $form;
-
     public function __construct()
     {
         $this->form = new Form(['action' => '/login', 'method' => 'POST']);
-    }
-
-    public function getForm()
-    {
-        return $this->form;
     }
 
     public function addField($type, $name, $text, array $attributes = [])

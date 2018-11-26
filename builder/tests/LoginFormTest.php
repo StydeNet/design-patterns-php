@@ -10,11 +10,9 @@ class LoginFormTest extends TestCase
     /** @test */
     function it_builds_a_login_form()
     {
-        $builder = new BootstrapBuilder;
+        $loginForm = new LoginForm(new BootstrapBuilder);
 
-        $loginForm = new LoginForm($builder);
-
-        $form = $loginForm->build();
+        $form = $loginForm->createForm();
 
         $expected = <<<HTML
 <form action="/login" method="POST">
