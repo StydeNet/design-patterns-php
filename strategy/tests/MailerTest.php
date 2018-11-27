@@ -10,6 +10,41 @@ use StephaneCoinon\Mailtrap\Client;
 class MailerTest extends TestCase
 {
     /** @test */
+    function it_stores_the_sent_emails_in_an_array()
+    {
+        $mailer = new Mailer('array');
+        $mailer->setSender('admin@styde.net');
+
+        $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
+
+        $sent = $mailer->sent();
+
+        $this->assertCount(1, $sent);
+        $this->assertSame('duilio@styde.net', $sent[0]['recipient']);
+        $this->assertSame('An example message', $sent[0]['subject']);
+        $this->assertSame('The content of the message', $sent[0]['body']);
+    }
+    
+    /** @test */
+    function it_stores_the_sent_emails_in_a_log_file()
+    {
+        $filename = __DIR__.'/../storage/test.txt';
+        @unlink($filename);
+
+        $mailer = new Mailer('file');
+        $mailer->setSender('admin@styde.net');
+
+        $mailer->setFilename($filename);
+        $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
+
+        $content = file_get_contents($filename);
+
+        $this->assertContains('Recipient: duilio@styde.net', $content);
+        $this->assertContains('Subject: An example message', $content);
+        $this->assertContains('Body: The content of the message', $content);
+    }
+    
+    /** @test */
     function it_sends_emails_using_smtp()
     {
         // - Given / Setup / Arrange
@@ -23,9 +58,15 @@ class MailerTest extends TestCase
         // Fetch an inbox by its id
         $inbox = Inbox::find(500267);
 
+        $inbox->empty();
+
         // - When / Act
 
-        $mailer = new Mailer;
+        $mailer = new Mailer('smtp');
+        $mailer->setHost('smtp.mailtrap.io');
+        $mailer->setUsername('8635d2f35a1bed');
+        $mailer->setPassword('200421505463ed');
+        $mailer->setPort('25');
         $mailer->setSender('admin@styde.net');
 
         $sent = $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
