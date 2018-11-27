@@ -1,0 +1,26 @@
+{
+    "name": "styde/strategy",
+    "description": "An example of the Strategy Pattern",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4",
+        "stephanecoinon/mailtrap": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duilio Palacios",
+            "email": "duilio@styde.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"Styde\\Strategy\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Styde\\Strategy\\Tests\\": "tests/"}
+    }
+}
