@@ -2,22 +2,26 @@
 
 namespace Styde\Strategy\Tests;
 
+use Styde\Strategy\ArrayTransport;
+use Styde\Strategy\FileTransport;
 use Styde\Strategy\Mailer;
 use StephaneCoinon\Mailtrap\Inbox;
 use StephaneCoinon\Mailtrap\Model;
 use StephaneCoinon\Mailtrap\Client;
+use Styde\Strategy\SmtpTransport;
+use Styde\Strategy\Transport;
 
 class MailerTest extends TestCase
 {
     /** @test */
     function it_stores_the_sent_emails_in_an_array()
     {
-        $mailer = new Mailer('array');
+        $mailer = new Mailer($transport = new ArrayTransport);
         $mailer->setSender('admin@styde.net');
 
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
 
-        $sent = $mailer->sent();
+        $sent = $transport->sent();
 
         $this->assertCount(1, $sent);
         $this->assertSame('duilio@styde.net', $sent[0]['recipient']);
@@ -31,10 +35,9 @@ class MailerTest extends TestCase
         $filename = __DIR__.'/../storage/test.txt';
         @unlink($filename);
 
-        $mailer = new Mailer('file');
+        $mailer = new Mailer(new FileTransport($filename));
         $mailer->setSender('admin@styde.net');
 
-        $mailer->setFilename($filename);
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
 
         $content = file_get_contents($filename);
@@ -58,15 +61,12 @@ class MailerTest extends TestCase
         // Fetch an inbox by its id
         $inbox = Inbox::find(500267);
 
+        // Delete all messages from the inbox
         $inbox->empty();
 
         // - When / Act
 
-        $mailer = new Mailer('smtp');
-        $mailer->setHost('smtp.mailtrap.io');
-        $mailer->setUsername('8635d2f35a1bed');
-        $mailer->setPassword('200421505463ed');
-        $mailer->setPort('25');
+        $mailer = new Mailer(new SmtpTransport('smtp.mailtrap.io', '8635d2f35a1bed', '200421505463ed', '25'));
         $mailer->setSender('admin@styde.net');
 
         $sent = $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');

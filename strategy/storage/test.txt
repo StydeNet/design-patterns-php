@@ -1,0 +1,6 @@
+
+
+New Email
+Recipient: duilio@styde.net
+Subject: An example message
+Body: The content of the message
