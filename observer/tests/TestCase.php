@@ -1,6 +1,6 @@
 <?php
 
-namespace Styde\Strategy\Tests;
+namespace Styde\Tests;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {

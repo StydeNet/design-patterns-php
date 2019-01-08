@@ -1,15 +1,9 @@
 <?php
 
-namespace Styde\Strategy\Tests;
+namespace Styde\Tests;
 
-use Styde\Strategy\ArrayTransport;
-use Styde\Strategy\FileTransport;
-use Styde\Strategy\Mailer;
-use StephaneCoinon\Mailtrap\Inbox;
-use StephaneCoinon\Mailtrap\Model;
-use StephaneCoinon\Mailtrap\Client;
-use Styde\Strategy\SmtpTransport;
-use Styde\Strategy\Transport;
+use StephaneCoinon\Mailtrap\{Client, Inbox, Model};
+use Styde\Mail\{ArrayTransport, FileTransport, Mailer, SmtpTransport};
 
 class MailerTest extends TestCase
 {
@@ -32,7 +26,7 @@ class MailerTest extends TestCase
     /** @test */
     function it_stores_the_sent_emails_in_a_log_file()
     {
-        $filename = __DIR__.'/../storage/test.txt';
+        $filename = __DIR__.'/../storage/mailer-test.txt';
         @unlink($filename);
 
         $mailer = new Mailer(new FileTransport($filename));
@@ -84,8 +78,3 @@ class MailerTest extends TestCase
         $this->assertContains('The content of the message', $newestMessage->body());
     }
 }
-
-
-
-
-

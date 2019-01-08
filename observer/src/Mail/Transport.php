@@ -1,6 +1,6 @@
 <?php
 
-namespace Styde\Strategy;
+namespace Styde\Mail;
 
 abstract class Transport
 {

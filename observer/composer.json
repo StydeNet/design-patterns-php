@@ -18,9 +18,9 @@
     ],
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": {"Styde\\Strategy\\": "src/"}
+        "psr-4": {"Styde\\": "src/"}
     },
     "autoload-dev": {
-        "psr-4": {"Styde\\Strategy\\Tests\\": "tests/"}
+        "psr-4": {"Styde\\Tests\\": "tests/"}
     }
 }
