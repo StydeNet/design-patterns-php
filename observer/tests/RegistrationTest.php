@@ -18,5 +18,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertTrue($result);
+
+        // $this->assertDatabaseHas('users', [...])
     }
 }
