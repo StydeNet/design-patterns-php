@@ -9,7 +9,11 @@ class RegistrationTest extends TestCase
     /** @test */
     function user_registration()
     {
-        $registration = new Registration();
+        $logger = $this->loggerFake('test-log-registration.txt');
+
+        $mailer = $this->mailerFake();
+
+        $registration = new Registration($logger, $mailer);
 
         $result = $registration->create([
             'name' => 'Duilio',
@@ -20,5 +24,17 @@ class RegistrationTest extends TestCase
         $this->assertTrue($result);
 
         // $this->assertDatabaseHas('users', [...])
+
+        $logger->assertFileEquals('User Duilio <duilio@styde.net> was created');
+
+        $mailer->assertSentTimes(1)
+            ->assertSentTo('duilio@styde.net')
+            ->assertSubjectEquals('Welcome')
+            ->assertBodyEquals('Hello Duilio, welcome to Styde!');
     }
 }
+
+
+
+
+

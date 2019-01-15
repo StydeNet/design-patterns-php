@@ -9,7 +9,7 @@ class LoggerTest extends TestCase
     /** @test */
     function it_stores_the_log_message_in_a_log_file()
     {
-        $filename = __DIR__.'/../storage/logger-test.txt';
+        $filename = storage_path('logger-test.txt');
         @unlink($filename);
 
         $logger = new Logger($filename);
