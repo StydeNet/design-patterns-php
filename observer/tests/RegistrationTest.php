@@ -3,6 +3,8 @@
 namespace Styde\Tests;
 
 use Styde\Registration;
+use Styde\Observers\SendWelcomeEmail;
+use Styde\Observers\LogUserRegistration;
 
 class RegistrationTest extends TestCase
 {
@@ -13,7 +15,11 @@ class RegistrationTest extends TestCase
 
         $mailer = $this->mailerFake();
 
-        $registration = new Registration($logger, $mailer);
+        $registration = new Registration;
+        $registration->attach(
+            new LogUserRegistration($logger),
+            new SendWelcomeEmail($mailer)
+        );
 
         $result = $registration->create([
             'name' => 'Duilio',

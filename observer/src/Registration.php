@@ -2,28 +2,25 @@
 
 namespace Styde;
 
-use Styde\Log\Logger;
-use Styde\Mail\Mailer;
+use Styde\Observers\NotifiesObservers;
 
 class Registration
 {
-    private $logger;
-    private $mailer;
+    use NotifiesObservers;
 
-    public function __construct(Logger $logger, Mailer $mailer)
-    {
-        $this->logger = $logger;
-        $this->mailer = $mailer;
-    }
+    protected $user;
 
     public function create(array $data)
     {
-        // $user = User::create($data);
+        $this->user = User::create($data);
 
-        $this->logger->log("User {$data['name']} <{$data['email']}> was created");
-
-        $this->mailer->send('duilio@styde.net', 'Welcome', "Hello {$data['name']}, welcome to Styde!");
+        $this->notify();
 
         return true;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 }
