@@ -2,13 +2,14 @@
 
 namespace Styde;
 
+use SplSubject;
 use Styde\Observers\NotifiesObservers;
 
-class Registration
+class Registration implements SplSubject
 {
     use NotifiesObservers;
 
-    protected $user;
+    public $user;
 
     public function create(array $data)
     {
@@ -19,8 +20,4 @@ class Registration
         return true;
     }
 
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

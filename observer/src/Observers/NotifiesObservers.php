@@ -3,20 +3,40 @@
 
 namespace Styde\Observers;
 
+use SplObserver;
+use SplObjectStorage;
 
 trait NotifiesObservers
 {
-    protected $observers = [];
+    protected $observers;
 
-    public function attach(Observer ...$observers)
+    public function attach(SplObserver $observer)
     {
-        $this->observers = array_merge($this->observers, $observers);
+        $this->initializeObservers();
+
+        $this->observers->attach($observer);
     }
 
-    protected function notify()
+    public function detach(SplObserver $observer)
     {
+        $this->initializeObservers();
+
+        $this->observers->detach($observer);
+    }
+
+    public function notify()
+    {
+        $this->initializeObservers();
+
         foreach ($this->observers as $observer) {
-            $observer->handle($this);
+            $observer->update($this);
+        }
+    }
+
+    protected function initializeObservers()
+    {
+        if ($this->observers == null) {
+            $this->observers = new SplObjectStorage;
         }
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Styde\Observers;
 
+use SplObserver, SplSubject;
 use Styde\Log\Logger;
 
-class LogUserRegistration implements Observer
+class LogUserRegistration implements SplObserver
 {
     private $logger;
 
@@ -13,10 +14,8 @@ class LogUserRegistration implements Observer
         $this->logger = $logger;
     }
 
-    public function handle($subject)
+    public function update(SplSubject $subject)
     {
-        $user = $subject->getUser();
-
-        $this->logger->log("User {$user->name} <{$user->email}> was created");
+        $this->logger->log("User {$subject->user->name} <{$subject->user->email}> was created");
     }
 }

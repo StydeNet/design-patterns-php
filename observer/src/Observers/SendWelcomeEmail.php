@@ -3,8 +3,9 @@
 namespace Styde\Observers;
 
 use Styde\Mail\Mailer;
+use SplObserver, SplSubject;
 
-class SendWelcomeEmail implements Observer
+class SendWelcomeEmail implements SplObserver
 {
     private $mailer;
 
@@ -13,10 +14,8 @@ class SendWelcomeEmail implements Observer
         $this->mailer = $mailer;
     }
 
-    public function handle($subject)
+    public function update(SplSubject $subject)
     {
-        $user = $subject->getUser();
-
-        $this->mailer->send('duilio@styde.net', 'Welcome', "Hello {$user->name}, welcome to Styde!");
+        $this->mailer->send($subject->user->email, 'Welcome', "Hello {$subject->user->name}, welcome to Styde!");
     }
 }

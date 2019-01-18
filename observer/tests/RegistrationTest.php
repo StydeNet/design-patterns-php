@@ -16,10 +16,8 @@ class RegistrationTest extends TestCase
         $mailer = $this->mailerFake();
 
         $registration = new Registration;
-        $registration->attach(
-            new LogUserRegistration($logger),
-            new SendWelcomeEmail($mailer)
-        );
+        $registration->attach(new LogUserRegistration($logger));
+        $registration->attach(new SendWelcomeEmail($mailer));
 
         $result = $registration->create([
             'name' => 'Duilio',
