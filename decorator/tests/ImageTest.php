@@ -9,7 +9,7 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_an_image()
     {
-        $image = new Image(assets_path('img/decorator.jpeg'));
+        $image = Image::make(assets_path('img/decorator.jpeg'));
 
         $this->assertImageEquals('basic-image.jpeg', $image);
     }
@@ -17,7 +17,7 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_resized_image()
     {
-        $image = new Image(assets_path('img/decorator.jpeg'), 500, 333);
+        $image = Image::make(assets_path('img/decorator.jpeg'), 500, 333);
 
         $this->assertImageEquals('resized-image.jpeg', $image);
     }
@@ -25,7 +25,7 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_grayscale_image()
     {
-        $image = new Image(assets_path('img/decorator.jpeg'), null, null, true);
+        $image = Image::make(assets_path('img/decorator.jpeg'), null, null, true);
 
         $this->assertImageEquals('grayscale-image.jpeg', $image);
     }
@@ -33,7 +33,7 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_framed_image()
     {
-        $image = new Image(assets_path('img/decorator.jpeg'), null, null, false, 10);
+        $image = Image::make(assets_path('img/decorator.jpeg'), null, null, false, 10);
 
         $this->assertImageEquals('framed-image.jpeg', $image);
     }
@@ -41,7 +41,9 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_resized_grayscale_framed_image()
     {
-        $image = new Image(assets_path('img/decorator.jpeg'), 500, 333, true, 5);
+        $this->markTestIncomplete('Cannot apply multiple filters using inheritance');
+
+        $image = Image::make(assets_path('img/decorator.jpeg'), 500, 333, true, 5);
 
         $this->assertImageEquals('resized-grayscale-framed-image.jpeg', $image);
     }
