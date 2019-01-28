@@ -2,14 +2,17 @@
 
 namespace Styde\Tests;
 
-use Styde\Image;
+use Styde\FramedDecorator;
+use Styde\GrayscaleDecorator;
+use Styde\ImageJpeg;
+use Styde\ResizeDecorator;
 
 class ImageTest extends TestCase
 {
     /** @test */
     function it_can_draw_an_image()
     {
-        $image = Image::make(assets_path('img/decorator.jpeg'));
+        $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
         $this->assertImageEquals('basic-image.jpeg', $image);
     }
@@ -17,7 +20,8 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_resized_image()
     {
-        $image = Image::make(assets_path('img/decorator.jpeg'), 500, 333);
+        $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
+        $image = new ResizeDecorator($image, 500, 333);
 
         $this->assertImageEquals('resized-image.jpeg', $image);
     }
@@ -25,7 +29,8 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_grayscale_image()
     {
-        $image = Image::make(assets_path('img/decorator.jpeg'), null, null, true);
+        $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
+        $image = new GrayscaleDecorator($image);
 
         $this->assertImageEquals('grayscale-image.jpeg', $image);
     }
@@ -33,7 +38,8 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_framed_image()
     {
-        $image = Image::make(assets_path('img/decorator.jpeg'), null, null, false, 10);
+        $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
+        $image = new FramedDecorator($image, 10);
 
         $this->assertImageEquals('framed-image.jpeg', $image);
     }
@@ -41,9 +47,10 @@ class ImageTest extends TestCase
     /** @test */
     function it_can_draw_a_resized_grayscale_framed_image()
     {
-        $this->markTestIncomplete('Cannot apply multiple filters using inheritance');
-
-        $image = Image::make(assets_path('img/decorator.jpeg'), 500, 333, true, 5);
+        $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
+        $image = new ResizeDecorator($image, 500, 333);
+        $image = new GrayscaleDecorator($image);
+        $image = new FramedDecorator($image, 5);
 
         $this->assertImageEquals('resized-grayscale-framed-image.jpeg', $image);
     }

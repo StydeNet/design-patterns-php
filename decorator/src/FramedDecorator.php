@@ -2,14 +2,14 @@
 
 namespace Styde;
 
-class FramedDecorator
+class FramedDecorator implements Image
 {
     protected $image;
     protected $thickness;
 
-    public function __construct($filename, $thickness)
+    public function __construct(Image $image, $thickness = 1)
     {
-        $this->image = Image::make($filename);
+        $this->image = $image;
 
         $this->thickness = $thickness;
     }

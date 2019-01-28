@@ -2,15 +2,15 @@
 
 namespace Styde;
 
-class ResizeDecorator
+class ResizeDecorator implements Image
 {
     protected $image;
     protected $width;
     protected $height;
 
-    public function __construct($filename, $width, $height)
+    public function __construct(Image $image, $width, $height)
     {
-        $this->image = Image::make($filename);
+        $this->image = $image;
 
         $this->width = $width;
         $this->height = $height;

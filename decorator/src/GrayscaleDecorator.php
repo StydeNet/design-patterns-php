@@ -2,13 +2,13 @@
 
 namespace Styde;
 
-class GrayscaleDecorator
+class GrayscaleDecorator implements Image
 {
     protected $image;
 
-    public function __construct($filename)
+    public function __construct(Image $image)
     {
-        $this->image = Image::make($filename);
+        $this->image = $image;
     }
 
     public function draw()
