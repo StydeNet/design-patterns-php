@@ -2,14 +2,15 @@
 
 namespace Styde;
 
-class ResizeDecorator extends Image
+class ResizeDecorator
 {
+    protected $image;
     protected $width;
     protected $height;
 
-    public function __construct($filename, $width, $height, $framed)
+    public function __construct($filename, $width, $height)
     {
-        parent::__construct($filename, null, null, $framed);
+        $this->image = Image::make($filename);
 
         $this->width = $width;
         $this->height = $height;
@@ -17,12 +18,6 @@ class ResizeDecorator extends Image
 
     public function draw()
     {
-        $img = parent::draw();
-
-        if ($this->width && $this->height) {
-            $img = imagescale($img, $this->width, $this->height);
-        }
-
-        return $img;
+        return imagescale($this->image->draw(), $this->width, $this->height);
     }
 }
