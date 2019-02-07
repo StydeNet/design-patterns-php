@@ -2,18 +2,11 @@
 
 namespace Styde;
 
-class GrayscaleDecorator implements Image
+class GrayscaleDecorator extends ImageDecorator
 {
-    protected $image;
-
-    public function __construct(Image $image)
-    {
-        $this->image = $image;
-    }
-
     public function draw()
     {
-        $img = $this->image->draw();
+        $img = parent::draw();
 
         imagefilter($img, IMG_FILTER_GRAYSCALE);
 

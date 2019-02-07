@@ -2,21 +2,20 @@
 
 namespace Styde;
 
-class FramedDecorator implements Image
+class FramedDecorator extends ImageDecorator
 {
-    protected $image;
     protected $thickness;
 
     public function __construct(Image $image, $thickness = 1)
     {
-        $this->image = $image;
+        parent::__construct($image);
 
         $this->thickness = $thickness;
     }
 
     public function draw()
     {
-        return $this->addBorder($this->image->draw());
+        return $this->addBorder(parent::draw());
     }
 
     protected function addBorder($img)
