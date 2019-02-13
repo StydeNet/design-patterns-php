@@ -2,9 +2,6 @@
 
 require_once __DIR__.'/../bootstrap/app.php';
 
-use Styde\ImagePng;
-
-$image = new ImagePng(assets_path('img/tower-bridge.png'));
-
+$img = imagecreatefrompng(assets_path('img/tower-bridge.png'));
 header('Content-Type: image/png');
-imagepng($image->draw());
+imagepng($img);
