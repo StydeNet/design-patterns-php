@@ -12,6 +12,32 @@ class BaseModel
 
     protected $fillable = [];
 
+    public static function create(array $attributes)
+    {
+        $user = new static;
+
+        $user->setAttributes($attributes);
+
+        $user->save();
+
+        return $user;
+    }
+
+    public static function forceCreate(array $attributes)
+    {
+        $user = new static;
+
+        $user->unguard();
+
+        $user->setAttributes($attributes);
+
+        $user->reguard();
+
+        $user->save();
+
+        return $user;
+    }
+
     public function __construct(array $attributes = [])
     {
         $this->setAttributes($attributes);
