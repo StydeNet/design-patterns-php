@@ -34,19 +34,4 @@ class UserTest extends TestCase
 //        $this->get('my-profile')
 //            ->assertSee('Duilio (Admin)');
     }
-
-    protected function createUser(array $attributes): User
-    {
-        $user = new User;
-
-        $user->unguard();
-
-        $user->setAttributes($attributes);
-
-        $user->reguard();
-
-        $user->save();
-
-        return $user;
-    }
 }
