@@ -12,35 +12,40 @@ abstract class BaseModel
 
     protected $fillable = [];
 
-    public static function create(array $attributes)
-    {
-        $user = new static;
-
-        $user->setAttributes($attributes);
-
-        $user->save();
-
-        return $user;
-    }
-
-    public static function forceCreate(array $attributes)
-    {
-        $user = new static;
-
-        $user->unguard();
-
-        $user->setAttributes($attributes);
-
-        $user->reguard();
-
-        $user->save();
-
-        return $user;
-    }
+//    public static function create(array $attributes)
+//    {
+//        $model = new static;
+//
+//        $model->setAttributes($attributes);
+//
+//        $model->save();
+//
+//        return $model;
+//    }
+//
+//    public static function forceCreate(array $attributes)
+//    {
+//        $model = new static;
+//
+//        $model->unguard();
+//
+//        $model->setAttributes($attributes);
+//
+//        $model->reguard();
+//
+//        $model->save();
+//
+//        return $model;
+//    }
 
     public function __construct(array $attributes = [])
     {
         $this->setAttributes($attributes);
+    }
+
+    public function fill(array $attributes)
+    {
+        return $this->setAttributes($attributes);
     }
 
     public function setAttributes(array $attributes)

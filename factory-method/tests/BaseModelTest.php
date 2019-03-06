@@ -4,7 +4,7 @@ namespace Styde\Tests;
 
 use Styde\Models\BaseModel;
 
-class CreateModelTest extends TestCase
+class BaseModelTest extends TestCase
 {
     /** @test */
     function a_model_can_be_instantiated()
@@ -68,9 +68,4 @@ class CreateModelTest extends TestCase
 
         $this->assertTrue($model->wasRecentlyCreated);
     }
-}
-
-class ExampleModel extends BaseModel
-{
-    protected $fillable = ['name', 'email'];
 }
