@@ -22,4 +22,9 @@ class FileTransport extends Transport
 
         return file_put_contents($this->filename, "\n\n".implode("\n", $data), FILE_APPEND);
     }
+
+    public function getFilename()
+    {
+        return $this->filename;
+    }
 }

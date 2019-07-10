@@ -2,21 +2,30 @@
 
 namespace Styde\Strategy\Tests;
 
-use Styde\Strategy\ArrayTransport;
-use Styde\Strategy\FileTransport;
+use InvalidArgumentException;
 use Styde\Strategy\Mailer;
+use Styde\Strategy\FileTransport;
+use Styde\Strategy\SmtpTransport;
 use StephaneCoinon\Mailtrap\Inbox;
 use StephaneCoinon\Mailtrap\Model;
 use StephaneCoinon\Mailtrap\Client;
-use Styde\Strategy\SmtpTransport;
-use Styde\Strategy\Transport;
+use Styde\Strategy\TransportManager;
 
 class MailerTest extends TestCase
 {
+    protected $manager;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->manager = new TransportManager;
+    }
+
     /** @test */
     function it_stores_the_sent_emails_in_an_array()
     {
-        $mailer = new Mailer($transport = new ArrayTransport);
+        $mailer = new Mailer($transport = $this->manager->driver('array'));
         $mailer->setSender('admin@styde.net');
 
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
@@ -32,27 +41,69 @@ class MailerTest extends TestCase
     /** @test */
     function it_stores_the_sent_emails_in_a_log_file()
     {
-        $filename = __DIR__.'/../storage/test.txt';
-        @unlink($filename);
+        $transport = $this->manager->driver('file');
 
-        $mailer = new Mailer(new FileTransport($filename));
+        @unlink($transport->getFilename());
+
+        $mailer = new Mailer($transport);
         $mailer->setSender('admin@styde.net');
 
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($transport->getFilename());
 
-        $this->assertContains('Recipient: duilio@styde.net', $content);
-        $this->assertContains('Subject: An example message', $content);
-        $this->assertContains('Body: The content of the message', $content);
+        $this->assertStringContainsString('Recipient: duilio@styde.net', $content);
+        $this->assertStringContainsString('Subject: An example message', $content);
+        $this->assertStringContainsString('Body: The content of the message', $content);
     }
     
     /** @test */
     function it_sends_emails_using_smtp()
     {
         // - Given / Setup / Arrange
+        $inbox = $this->bootMailtrap();
 
-        // Instantiate Mailtrap API client
+        $mailer = new Mailer($this->manager->driver('smtp'));
+        $mailer->setSender('admin@styde.net');
+
+        // - When / Act
+        $sent = $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
+
+        // - Then / Assert
+        $this->assertTrue($sent);
+
+        $newestMessage = $inbox->lastMessage();
+        $this->assertNotNull($newestMessage);
+        $this->assertSame(['duilio@styde.net'], $newestMessage->recipientEmails());
+        $this->assertSame('An example message', $newestMessage->subject());
+        $this->assertStringContainsString('The content of the message', $newestMessage->body());
+    }
+    
+    /** @test */
+    function it_throws_an_invalid_argument_exception_if_the_transport_type_does_not_exist()
+    {
+//        $this->expectException(InvalidArgumentException::class);
+//        $this->expectExceptionMessage('Driver [invalid] not found.');
+
+        try {
+            $this->manager->driver('invalid');
+        } catch (InvalidArgumentException $e) {
+            $this->assertSame('Driver [invalid] not found.', $e->getMessage());
+
+            //...
+
+            return;
+        }
+
+        $this->fail('The expected InvalidArgumentException was not thrown.');
+    }
+
+    /**
+     * @return null|static
+     */
+    protected function bootMailtrap()
+    {
+// Instantiate Mailtrap API client
         $client = new Client('4d65125c115709da5403fcd2d5a2e0ef');
 
         // Boot API models
@@ -63,25 +114,7 @@ class MailerTest extends TestCase
 
         // Delete all messages from the inbox
         $inbox->empty();
-
-        // - When / Act
-
-        $mailer = new Mailer(new SmtpTransport('smtp.mailtrap.io', '8635d2f35a1bed', '200421505463ed', '25'));
-        $mailer->setSender('admin@styde.net');
-
-        $sent = $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
-
-        // - Then / Assert
-
-        $this->assertTrue($sent);
-
-        // Get the last (newest) message in an inbox
-        $newestMessage = $inbox->lastMessage();
-
-        $this->assertNotNull($newestMessage);
-        $this->assertSame(['duilio@styde.net'], $newestMessage->recipientEmails());
-        $this->assertSame('An example message', $newestMessage->subject());
-        $this->assertContains('The content of the message', $newestMessage->body());
+        return $inbox;
     }
 }
 
