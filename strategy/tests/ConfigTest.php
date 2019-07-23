@@ -2,6 +2,7 @@
 
 namespace Styde\Strategy\Tests;
 
+use ArrayAccess;
 use Styde\Strategy\Config;
 
 class ConfigTest extends TestCase
@@ -67,5 +68,48 @@ class ConfigTest extends TestCase
         ]);
 
         $this->assertNull($config->get('a-key-with-null', 'a default value'));
+    }
+
+    /** @test */
+    function implements_array_access()
+    {
+        $this->assertInstanceOf(ArrayAccess::class, new Config);
+    }
+
+    /** @test */
+    function sets_and_gets_values_with_array_access()
+    {
+        $config = new Config;
+        $config['a-key'] = 'a value';
+        $config['another-key'] = 'another value';
+
+        $this->assertSame('a value', $config['a-key']);
+        $this->assertSame('another value', $config['another-key']);
+    }
+
+    /** @test */
+    function checks_it_has_a_key_or_not_with_array_access()
+    {
+        $config = new Config([
+            'a-key' => 'a value',
+            'a-key-with-null' => null,
+        ]);
+
+        $this->assertArrayHasKey('a-key', $config);
+        $this->assertArrayHasKey('a-key-with-null', $config);
+        $this->assertArrayNotHasKey('non-existent-key', $config);
+    }
+
+    /** @test */
+    function unsets_a_key()
+    {
+        $config = new Config([
+            'a-key' => 'a value',
+        ]);
+
+        $this->assertArrayHasKey('a-key', $config);
+        unset($config['a-key']);
+        $this->assertArrayHasKey('a-key', $config);
+        $this->assertNull($config['a-key']);
     }
 }

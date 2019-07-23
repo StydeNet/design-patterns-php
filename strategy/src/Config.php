@@ -2,7 +2,9 @@
 
 namespace Styde\Strategy;
 
-class Config
+use ArrayAccess;
+
+class Config implements ArrayAccess
 {
     protected $items;
 
@@ -28,5 +30,25 @@ class Config
     public function has($key)
     {
         return array_key_exists($key, $this->items);
+    }
+
+    public function offsetExists($offset)
+    {
+        return $this->has($offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->set($offset, $value);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $this->set($offset, null);
     }
 }
