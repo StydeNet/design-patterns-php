@@ -24,7 +24,17 @@ class Config implements ArrayAccess
             return $this->items[$key];
         }
 
-        return $default;
+        $segments = explode('.', $key); // ['a1', 'b1'] (2 segments)
+        $value = $this->items;
+        foreach ($segments as $segment) {
+            if (is_array($value) && array_key_exists($segment, $value)) {
+                $value = $value[$segment];
+            } else {
+                return $default;
+            }
+        }
+
+        return $value;
     }
 
     public function has($key)

@@ -29,6 +29,40 @@ class ConfigTest extends TestCase
         $this->assertSame('a value', $config->get('a-key'));
         $this->assertSame('another value', $config->get('another-key'));
     }
+    
+    /** @test */
+    function gets_values_in_subarrays()
+    {
+        $config = new Config([
+            'a1' => [
+                'b1' => 'value in b1',
+                'b2' => [
+                    'c1' => [
+                        'd1' => 'value in d1',
+                    ],
+                    'c2' => [
+                        'd2' => 'value in d2',
+                        'd3' => 'value in d3',
+                    ],
+                    'c3' => 'value in c3',
+                ],
+            ],
+        ]);
+
+        $this->assertIsArray($config['a1']);
+        $this->assertSame('value in b1', $config['a1.b1']);
+        $this->assertIsArray($config['a1.b2']);
+        $this->assertSame('value in d1', $config['a1.b2.c1.d1']);
+        $this->assertSame('value in d2', $config['a1.b2.c2.d2']);
+        $this->assertSame('value in d3', $config['a1.b2.c2.d3']);
+        $this->assertSame('value in c3', $config['a1.b2.c3']);
+
+        $this->assertNull($config['a1.b99']);
+        $this->assertSame(
+            'a default value',
+            $config->get('a1.b99', 'a default value')
+        );
+    }
 
     /** @test */
     function checks_it_has_a_key_or_not()

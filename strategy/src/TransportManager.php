@@ -27,6 +27,11 @@ class TransportManager extends Manager
 
     protected function createSmtpDriver()
     {
-        return new SmtpTransport($this->config['mail.smtp.host'], '8635d2f35a1bed', '200421505463ed', '25');
+        return new SmtpTransport(
+            $this->config['mail.smtp.host'],
+            $this->config['mail.smtp.username'],
+            $this->config['mail.smtp.password'],
+            $this->config['mail.smtp.port']
+        );
     }
 }
