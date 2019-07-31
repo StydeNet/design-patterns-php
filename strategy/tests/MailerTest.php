@@ -2,13 +2,15 @@
 
 namespace Styde\Strategy\Tests;
 
-use Styde\Strategy\Mailer;
+use ReflectionClass;
 use Styde\Strategy\Config;
+use Styde\Strategy\Mailer;
 use InvalidArgumentException;
 use StephaneCoinon\Mailtrap\Inbox;
 use StephaneCoinon\Mailtrap\Model;
 use StephaneCoinon\Mailtrap\Client;
 use Styde\Strategy\TransportManager;
+use Styde\Strategy\LoadConfiguration;
 
 class MailerTest extends TestCase
 {
@@ -18,16 +20,7 @@ class MailerTest extends TestCase
     {
         parent::setUp();
 
-        $this->manager = new TransportManager(new Config([
-            'mail' => [
-                'smtp' => [
-                    'host' => 'smtp.mailtrap.io',
-                    'username' => '8635d2f35a1bed',
-                    'password' => '200421505463ed',
-                    'port' => '25'
-                ]
-            ]
-        ]));
+        $this->manager = TransportManager::getInstance();
     }
 
     /** @test */
@@ -45,7 +38,7 @@ class MailerTest extends TestCase
         $this->assertSame('An example message', $sent[0]['subject']);
         $this->assertSame('The content of the message', $sent[0]['body']);
     }
-    
+
     /** @test */
     function it_stores_the_sent_emails_in_a_log_file()
     {
@@ -64,7 +57,7 @@ class MailerTest extends TestCase
         $this->assertStringContainsString('Subject: An example message', $content);
         $this->assertStringContainsString('Body: The content of the message', $content);
     }
-    
+
     /** @test */
     function it_sends_emails_using_smtp()
     {
@@ -86,7 +79,7 @@ class MailerTest extends TestCase
         $this->assertSame('An example message', $newestMessage->subject());
         $this->assertStringContainsString('The content of the message', $newestMessage->body());
     }
-    
+
     /** @test */
     function it_throws_an_invalid_argument_exception_if_the_transport_type_does_not_exist()
     {

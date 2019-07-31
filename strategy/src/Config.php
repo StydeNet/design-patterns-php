@@ -4,13 +4,36 @@ namespace Styde\Strategy;
 
 use ArrayAccess;
 
-class Config implements ArrayAccess
+class Config implements ArrayAccess, ConfigInterface
 {
+    protected static $instance;
+
     protected $items;
 
-    public function __construct(array $items = [])
+    public static function getInstance()
+    {
+        if (static::$instance == null) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    private function __construct()
+    {
+        //
+    }
+
+    public function initialize(array $items = [])
     {
         $this->items = $items;
+
+        return $this;
+    }
+
+    private function __clone()
+    {
+
     }
 
     public function set($key, $value)
