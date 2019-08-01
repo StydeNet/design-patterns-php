@@ -6,22 +6,11 @@ use ArrayAccess;
 
 class Config implements ArrayAccess, ConfigInterface
 {
-    protected static $instance;
-
     protected $items;
 
-    public static function getInstance()
+    public function __construct(array $items = [])
     {
-        if (static::$instance == null) {
-            static::$instance = new static;
-        }
-
-        return static::$instance;
-    }
-
-    private function __construct()
-    {
-        //
+        $this->initialize($items);
     }
 
     public function initialize(array $items = [])

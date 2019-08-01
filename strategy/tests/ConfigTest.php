@@ -10,14 +10,12 @@ class ConfigTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Config::getInstance()->initialize([]);
     }
 
     /** @test */
     function sets_and_gets_values()
     {
-        $config = Config::getInstance();
+        $config = new Config;
         $config->set('a-key', 'a value');
         $config->set('another-key', 'another value');
 
@@ -28,7 +26,7 @@ class ConfigTest extends TestCase
     /** @test */
     function initializes_values()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a-key' => 'a value',
             'another-key' => 'another value',
         ]);
@@ -40,7 +38,7 @@ class ConfigTest extends TestCase
     /** @test */
     function gets_values_in_subarrays()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a1' => [
                 'b1' => 'value in b1',
                 'b2' => [
@@ -74,7 +72,7 @@ class ConfigTest extends TestCase
     /** @test */
     function checks_it_has_a_key_or_not()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a-key' => 'a value',
             'a-key-with-null' => null,
         ]);
@@ -87,7 +85,7 @@ class ConfigTest extends TestCase
     /** @test */
     function get_returns_null_by_default()
     {
-        $config = Config::getInstance();
+        $config = new Config;
 
         $this->assertNull($config->get('a-key'));
     }
@@ -95,7 +93,7 @@ class ConfigTest extends TestCase
     /** @test */
     function get_can_return_a_custom_default_value()
     {
-        $config = Config::getInstance();
+        $config = new Config;
 
         $this->assertSame('a default value', $config->get('a-key', 'a default value'));
         $this->assertSame('another default value', $config->get('a-key', 'another default value'));
@@ -104,7 +102,7 @@ class ConfigTest extends TestCase
     /** @test */
     function get_returns_null_if_the_key_contains_null()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a-key-with-null' => null,
         ]);
 
@@ -114,13 +112,13 @@ class ConfigTest extends TestCase
     /** @test */
     function implements_array_access()
     {
-        $this->assertInstanceOf(ArrayAccess::class, Config::getInstance());
+        $this->assertInstanceOf(ArrayAccess::class, new Config);
     }
 
     /** @test */
     function sets_and_gets_values_with_array_access()
     {
-        $config = Config::getInstance();
+        $config = new Config;
         $config['a-key'] = 'a value';
         $config['another-key'] = 'another value';
 
@@ -131,7 +129,7 @@ class ConfigTest extends TestCase
     /** @test */
     function checks_it_has_a_key_or_not_with_array_access()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a-key' => 'a value',
             'a-key-with-null' => null,
         ]);
@@ -144,7 +142,7 @@ class ConfigTest extends TestCase
     /** @test */
     function unsets_a_key()
     {
-        $config = Config::getInstance()->initialize([
+        $config = new Config([
             'a-key' => 'a value',
         ]);
 

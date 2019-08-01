@@ -7,7 +7,7 @@ class Mailer
     protected $sender;
 
     protected $transport;
-    
+
     public function __construct(Transport $transport)
     {
         $this->transport = $transport;
@@ -21,5 +21,10 @@ class Mailer
     public function send($recipient, $subject, $body)
     {
         return $this->transport->send($recipient, $subject, $body, $this->sender);
+    }
+
+    public function getTransport()
+    {
+        return $this->transport;
     }
 }

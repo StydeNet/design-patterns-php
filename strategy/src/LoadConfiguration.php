@@ -6,7 +6,7 @@ class LoadConfiguration
 {
     public function bootstrap(Application $app)
     {
-        $config = Config::getInstance();
+        $config = new Config;
 
         $config->set('mail', [
             'smtp' => [
@@ -16,5 +16,7 @@ class LoadConfiguration
                 'port' => '25'
             ]
         ]);
+
+        $app->setConfig($config);
     }
 }
