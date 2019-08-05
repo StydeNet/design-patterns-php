@@ -8,16 +8,14 @@ class FrameDecoratorJpeg extends ImageDecorator
 {
     protected $thickness;
 
-    public function __construct(Image $image, $thickness = 1)
+    public function __construct($thickness = 1)
     {
-        parent::__construct($image);
         $this->thickness = $thickness;
     }
 
-    public function draw()
+    public function draw($image)
     {
-        return $this->addBorder($this->image->draw());
-
+        return $this->addBorder($image);
     }
 
     public function addBorder($img)

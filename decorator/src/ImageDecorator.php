@@ -4,12 +4,7 @@
 namespace Styde;
 
 
-abstract class ImageDecorator implements Image
+abstract class ImageDecorator
 {
-    protected $image;
-
-    public function __construct(Image $image)
-    {
-        $this->image = $image;
-    }
+    abstract public function draw($image);
 }

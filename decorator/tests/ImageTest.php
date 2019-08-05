@@ -26,8 +26,7 @@ class ImageTest extends TestCase
     function it_can_draw_a_resized_image()
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
-
-        $image = new ResizeDecorator($image, 1000, 666);
+        $image->setDecorator(new ResizeDecorator(1000, 666));
 
         $this->assertImageEquals($image, 'resized-image.jpeg');
     }
@@ -38,7 +37,7 @@ class ImageTest extends TestCase
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
-        $image = new GrayscaleDecorator($image);
+        $image->setDecorator(new GrayscaleDecorator());
 
         $this->assertImageEquals($image, 'greyscale-image.jpeg');
     }
@@ -49,7 +48,7 @@ class ImageTest extends TestCase
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
-        $image = new FrameDecoratorJpeg($image, 10);
+        $image->setDecorator(new FrameDecoratorJpeg(10));
 
         $this->assertImageEquals($image, 'framed-image.jpeg');
     }
@@ -60,9 +59,9 @@ class ImageTest extends TestCase
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
-        $image = new ResizeDecorator($image, 1000, 666);
+        $image->setDecorator(new ResizeDecorator(1000, 666));
 
-        $image = new FrameDecoratorJpeg($image, 10);
+        $image->setDecorator(new FrameDecoratorJpeg(10));
 
         $this->assertImageEquals($image, 'framed-sized-image.jpeg');
     }
@@ -73,9 +72,9 @@ class ImageTest extends TestCase
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
-        $image = new ResizeDecorator($image, 1000, 600);
+        $image->setDecorator(new ResizeDecorator(1000, 600));
 
-        $image = new GrayscaleDecorator($image);
+        $image->setDecorator(new GrayscaleDecorator());
 
         $this->assertImageEquals($image, 'grey-size-image.jpeg');
     }
@@ -86,7 +85,7 @@ class ImageTest extends TestCase
     {
         $image = new ImageJpeg(assets_path('img/decorator.jpeg'));
 
-        $image = new WatermarkDecorator($image, 10, 10);
+        $image->setDecorator(new WatermarkDecorator( 10, 10));
 
         $this->assertImageEquals($image, 'watermarked-image.jpeg');
     }

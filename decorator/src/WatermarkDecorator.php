@@ -6,36 +6,33 @@ namespace Styde;
 
 class WatermarkDecorator extends ImageDecorator
 {
-    private $leftMargin;
+    private $bottonMargin;
     private $rightMargin;
 
-    public function __construct(Image $image, $bottonMargin = 0, $rightMargin = 0)
+    public function __construct($bottonMargin = 0, $rightMargin = 0)
     {
         $this->bottonMargin = $bottonMargin;
         $this->rightMargin = $rightMargin;
-
-        parent::__construct($image);
     }
 
-    public function draw()
+    public function draw($image)
     {
-        $im = $this->image->draw();
         $estampa = imagecreatefrompng(assets_path('img/depau.png'));
 
         $sx = imagesx($estampa);
         $sy = imagesy($estampa);
 
         imagecopy(
-            $im,
+            $image,
             $estampa,
-            imagesx($im) - $sx - $this->rightMargin,
-            imagesy($im) - $sy - $this->bottonMargin,
+            imagesx($image) - $sx - $this->rightMargin,
+            imagesy($image) - $sy - $this->bottonMargin,
             0,
             0,
             imagesx($estampa),
             imagesy($estampa)
         );
 
-        return $im;
+        return $image;
     }
 }

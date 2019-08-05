@@ -6,12 +6,10 @@ namespace Styde;
 
 class GrayscaleDecorator extends ImageDecorator
 {
-    public function draw()
+    public function draw($image)
     {
-        $img = $this->image->draw();
+        imagefilter($image, IMG_FILTER_GRAYSCALE);
 
-        imagefilter($img, IMG_FILTER_GRAYSCALE);
-
-        return $img;
+        return $image;
     }
 }

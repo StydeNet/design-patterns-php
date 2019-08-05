@@ -4,17 +4,20 @@
 namespace Styde;
 
 
-class ImageJpeg implements Image
+class ImageJpeg extends Image
 {
     protected $path;
+    protected $image;
 
     public function __construct($path)
     {
         $this->path = $path;
+        $this->image = imagecreatefromjpeg($this->path);
     }
 
     public function draw()
     {
-        return imagecreatefromjpeg($this->path);
+        parent::draw();
+        return $this->image;
     }
 }

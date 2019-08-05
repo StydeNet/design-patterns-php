@@ -9,16 +9,14 @@ class ResizeDecorator extends ImageDecorator
     protected $width;
     protected $height;
 
-    public function __construct(Image $image, $width, $height)
+    public function __construct($width, $height)
     {
-        parent::__construct($image);
-
         $this->width = $width;
         $this->height = $height;
     }
 
-    public function draw()
+    public function draw($image)
     {
-        return imagescale($this->image->draw(), $this->width, $this->height);
+        return imagescale($image, $this->width, $this->height);
     }
 }
