@@ -3,35 +3,44 @@
 namespace Styde\Strategy\Tests;
 
 use ReflectionClass;
+use Styde\Strategy\Application;
 use Styde\Strategy\Config;
+use Styde\Strategy\Facades\App;
 use Styde\Strategy\Mailer;
 use InvalidArgumentException;
 use StephaneCoinon\Mailtrap\Inbox;
 use StephaneCoinon\Mailtrap\Model;
 use StephaneCoinon\Mailtrap\Client;
+use Styde\Strategy\SmtpTransport;
 use Styde\Strategy\TransportManager;
 use Styde\Strategy\LoadConfiguration;
 
 class MailerTest extends TestCase
 {
-    protected $manager;
-
-    protected function setUp(): void
+    /** @test */
+    function gets_a_mailer_with_a_default_transport()
     {
-        parent::setUp();
+        $this->assertInstanceOf(
+            SmtpTransport::class,
+            Application::getInstance()->getMailer()->getTransport()
+        );
+    }
 
-        $this->manager = TransportManager::getInstance();
+    /** @test */
+    function creates_only_one_instance_of_transport_manager()
+    {
+        $this->assertSame($this->app->getTransportManager(), $this->app->getTransportManager());
     }
 
     /** @test */
     function it_stores_the_sent_emails_in_an_array()
     {
-        $mailer = new Mailer($transport = $this->manager->driver('array'));
+        $mailer = App::mailer('array');
         $mailer->setSender('admin@styde.net');
 
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
 
-        $sent = $transport->sent();
+        $sent = $mailer->getTransport()->sent();
 
         $this->assertCount(1, $sent);
         $this->assertSame('duilio@styde.net', $sent[0]['recipient']);
@@ -42,16 +51,14 @@ class MailerTest extends TestCase
     /** @test */
     function it_stores_the_sent_emails_in_a_log_file()
     {
-        $transport = $this->manager->driver('file');
-
-        @unlink($transport->getFilename());
-
-        $mailer = new Mailer($transport);
+        $mailer = App::mailer('file');
         $mailer->setSender('admin@styde.net');
+
+        @unlink($mailer->getTransport()->getFilename());
 
         $mailer->send('duilio@styde.net', 'An example message', 'The content of the message');
 
-        $content = file_get_contents($transport->getFilename());
+        $content = file_get_contents($mailer->getTransport()->getFilename());
 
         $this->assertStringContainsString('Recipient: duilio@styde.net', $content);
         $this->assertStringContainsString('Subject: An example message', $content);
@@ -61,10 +68,12 @@ class MailerTest extends TestCase
     /** @test */
     function it_sends_emails_using_smtp()
     {
+//        $this->markTestSkipped();
+
         // - Given / Setup / Arrange
         $inbox = $this->bootMailtrap();
 
-        $mailer = new Mailer($this->manager->driver('smtp'));
+        $mailer = App::mailer('smtp');
         $mailer->setSender('admin@styde.net');
 
         // - When / Act
@@ -87,7 +96,7 @@ class MailerTest extends TestCase
 //        $this->expectExceptionMessage('Driver [invalid] not found.');
 
         try {
-            $this->manager->driver('invalid');
+            $this->app->getTransportManager()->driver('invalid');
         } catch (InvalidArgumentException $e) {
             $this->assertSame('Driver [invalid] not found.', $e->getMessage());
 

@@ -6,10 +6,13 @@ use Styde\Strategy\Application;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    protected $app;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        (new Application())->bootstrap();
+        $this->app = ApplicationStub::getInstance();
+        $this->app->bootstrap();
     }
 }

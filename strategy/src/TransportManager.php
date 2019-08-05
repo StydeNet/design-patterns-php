@@ -6,24 +6,13 @@ use InvalidArgumentException;
 
 class TransportManager extends Manager
 {
-    protected static $instance;
-
     protected $defaultDriver = 'array';
 
     protected $config;
 
-    public static function getInstance()
+    public function __construct(ConfigInterface $config)
     {
-        if (static::$instance == null) {
-            static::$instance = new static;
-        }
-
-        return static::$instance;
-    }
-
-    public function __construct()
-    {
-        $this->config = Config::getInstance();
+        $this->config = $config;
     }
 
     protected function createArrayDriver()

@@ -19,9 +19,9 @@ class Config implements ArrayAccess, ConfigInterface
         return static::$instance;
     }
 
-    private function __construct()
+    public function __construct(array $items = [])
     {
-        //
+        $this->items = $items;
     }
 
     public function initialize(array $items = [])
