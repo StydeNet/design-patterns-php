@@ -1,0 +1,17 @@
+{
+    "name": "fake/youtube",
+    "description": "Fake YouTube Library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duilio Palacios",
+            "email": "duilio@styde.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"YouTube\\": "src/"}
+    }
+}
