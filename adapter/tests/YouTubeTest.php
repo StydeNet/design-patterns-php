@@ -11,17 +11,21 @@ class YouTubeTest extends TestCase
     /**
      * @var YouTubeService
      */
-    protected $youtube;
+    protected $youTube;
+    /**
+     * @var Client
+     */
+    protected $youTubeClient;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $googleClient = new Client;
-        $googleClient->setClientId(GOOGLE_CLIENT_ID);
-        $googleClient->setClientSecret(GOOGLE_CLIENT_SECRET);
+        $this->youTubeClient = new Client;
+        $this->youTubeClient->setClientId(GOOGLE_CLIENT_ID);
+        $this->youTubeClient->setClientSecret(GOOGLE_CLIENT_SECRET);
 
-        $this->youtube = new YouTubeService($googleClient);
+        $this->youTube = new YouTubeService();
     }
 
     /** @test */
@@ -29,7 +33,7 @@ class YouTubeTest extends TestCase
     {
         // TODO: Upload video first?
 
-        $video = $this->youtube->getVideo('woHypKQ0yBg');
+        $video = $this->youTube->getVideo('woHypKQ0yBg', $this->youTubeClient);
 
         $this->assertSame('woHypKQ0yBg', $video->getId());
         $this->assertSame('Mejora el estilo de tu código PHP automáticamente', $video->getTitle());
@@ -42,7 +46,7 @@ class YouTubeTest extends TestCase
     function throw_video_not_found_exception()
     {
         try {
-            $video = $this->youtube->getVideo('invalid-id');
+            $video = $this->youTube->getVideo('invalid-id', $this->youTubeClient);
         } catch (VideoNotFoundException $exception) {
             $this->assertTrue(true);
             return;

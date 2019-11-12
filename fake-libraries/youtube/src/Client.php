@@ -2,6 +2,8 @@
 
 namespace YouTube;
 
+use BadMethodCallException;
+
 class Client
 {
     /**
@@ -30,19 +32,12 @@ class Client
         $this->clientSecret = $clientSecret;
     }
 
-    /**
-     * @return string
-     */
-    public function getClientSecret(): string
+    public function connect()
     {
-        return $this->clientSecret;
-    }
+        if ($this->clientId == '' || $this->clientSecret == '') {
+            throw new BadMethodCallException('The credentials have not been set');
+        }
 
-    /**
-     * @return string
-     */
-    public function getClientId(): string
-    {
-        return $this->clientId;
+        // Connect to server...
     }
 }

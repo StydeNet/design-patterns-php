@@ -5,29 +5,16 @@ namespace YouTube;
 class YouTubeService
 {
     /**
-     * @var GoogleClient
-     */
-    private $client;
-
-    /**
-     * YouTubeService constructor.
-     *
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
      * Get a video.
      *
      * @param $videoId
      * @return Video
      * @throws VideoNotFoundException
      */
-    public function getVideo($videoId): Video
+    public function getVideo($videoId, Client $client): Video
     {
+        $client->connect();
+
         if ($videoId == 'woHypKQ0yBg') {
             return new Video([
                 'id' => 'woHypKQ0yBg',
