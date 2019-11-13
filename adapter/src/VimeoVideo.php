@@ -2,7 +2,7 @@
 
 namespace Styde\Adapter;
 
-class VimeoVideo
+class VimeoVideo implements Video
 {
     /**
      * @var array
@@ -24,9 +24,9 @@ class VimeoVideo
         return $this->attributes['video_title'];
     }
 
-    public function getLength()
+    public function getLength(): int
     {
-        return $this->attributes['video_length'];
+        return strtotime('1970-01-01 00:'.$this->attributes['video_length']);
     }
 
     public function getLikes()

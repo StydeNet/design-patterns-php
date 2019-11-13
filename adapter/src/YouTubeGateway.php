@@ -5,7 +5,7 @@ namespace Styde\Adapter;
 use YouTube\Client;
 use YouTube\YouTubeService;
 
-class YouTubeAdapter
+class YouTubeGateway implements VideoGateway
 {
     /**
      * @var YouTubeService
@@ -22,7 +22,7 @@ class YouTubeAdapter
         $this->client = $client;
     }
 
-    public function getVideo($id)
+    public function getVideo($id): Video
     {
         try {
             $video = $this->youTubeService->getVideo($id, $this->client);

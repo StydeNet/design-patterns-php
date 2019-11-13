@@ -4,7 +4,7 @@ namespace Styde\Adapter;
 
 use Vimeo\Vimeo;
 
-class VimeoAdapter
+class VimeoGateway implements VideoGateway
 {
     /**
      * @var Vimeo
@@ -16,7 +16,7 @@ class VimeoAdapter
         $this->vimeo = $vimeo;
     }
 
-    public function getVideo($id)
+    public function getVideo($id): Video
     {
         $response = $this->vimeo->request("vimeo/{$id}", [], 'GET');
 

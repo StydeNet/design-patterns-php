@@ -2,13 +2,13 @@
 
 namespace Styde\Tests;
 
-use Styde\Adapter\YouTubeAdapter;
+use Styde\Adapter\YouTubeGateway;
 use Styde\Adapter\YouTubeVideo;
 use YouTube\Client;
 use Styde\Adapter\VideoNotFoundException;
 use YouTube\YouTubeService;
 
-class YouTubeAdapterTest extends TestCase
+class YouTubeGatewayTest extends TestCase
 {
     /**
      * @var YouTubeService
@@ -23,7 +23,7 @@ class YouTubeAdapterTest extends TestCase
         $youTubeClient->setClientId(GOOGLE_CLIENT_ID);
         $youTubeClient->setClientSecret(GOOGLE_CLIENT_SECRET);
 
-        $this->youTube = new YouTubeAdapter(
+        $this->youTube = new YouTubeGateway(
             new YouTubeService(), $youTubeClient
         );
     }

@@ -4,10 +4,10 @@ namespace Styde\Tests;
 
 use Vimeo\Vimeo;
 use Styde\Adapter\VimeoVideo;
-use Styde\Adapter\VimeoAdapter;
+use Styde\Adapter\VimeoGateway;
 use Styde\Adapter\VideoNotFoundException;
 
-class VimeoAdapterTest extends TestCase
+class VimeoGatewayTest extends TestCase
 {
     /**
      * @var Vimeo
@@ -18,7 +18,7 @@ class VimeoAdapterTest extends TestCase
     {
         parent::setUp();
 
-        $this->vimeo = new VimeoAdapter(
+        $this->vimeo = new VimeoGateway(
             new Vimeo(VIMEO_CLIENT_ID, VIMEO_CLIENT_SECRET)
         );
     }
@@ -34,7 +34,7 @@ class VimeoAdapterTest extends TestCase
 
         $this->assertSame('3696', $video->getId());
         $this->assertSame('Helper ddd', $video->getTitle());
-        $this->assertSame('03:45', $video->getLength());
+        $this->assertSame(225, $video->getLength()); // '03:45'
         $this->assertSame(10, $video->getLikes());
         $this->assertSame(100, $video->getViews());
     }

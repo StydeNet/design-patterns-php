@@ -2,16 +2,16 @@
 
 namespace Styde\Adapter;
 
-use YouTube\Video;
+use YouTube\Video as AdapteeVideo;
 
-class YouTubeVideo
+class YouTubeVideo implements Video
 {
     /**
      * @var Video
      */
     private $video;
 
-    public function __construct(Video $video)
+    public function __construct(AdapteeVideo $video)
     {
         $this->video = $video;
     }
@@ -26,7 +26,7 @@ class YouTubeVideo
         return $this->video->getTitle();
     }
 
-    public function getLength()
+    public function getLength(): int
     {
         return $this->video->getLength();
     }
