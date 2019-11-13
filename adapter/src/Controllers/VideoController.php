@@ -7,20 +7,16 @@ use YouTube\Client as YouTubeClient;
 
 class VideoController extends Controller
 {
-    public function show(Vimeo $vimeo, YouTubeService $youtube, YouTubeClient $youTubeClient, Request $request)
+    public function show(\Styde\Adapter\VimeoAdapter $vimeo, YouTubeService $youtube, YouTubeClient $youTubeClient, Request $request)
     {
         // TODO: add validation here.
 
         if ($request->get('service') == 'vimeo') {
-            $videoResponse = $vimeo->request('vimeo/'.$request->get('video_id'), [], 'GET');
-
-            if ($videoResponse->status != 200) {
+            try {
+                $video = $vimeo->getVideo($request->get('video_id'));
+            } catch (\Styde\Adapter\VideoNotFoundException $exception) {
                 abort('There was a problem fetching the video information', 404);
             }
-
-            $video = $videoResponse->body;
-
-            $video['service'] = 'vimeo';
         } elseif ($request->get('service') == 'youtube') {
             try {
                 $video = $youtube->getVideo($request->get('video_id'), $youTubeClient);
