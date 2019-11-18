@@ -9,7 +9,9 @@ class VideoController extends Controller
 {
     public function show(\Styde\Adapter\VimeoGateway $vimeo, \Styde\Adapter\YouTubeGateway $youtube, Request $request)
     {
-        if ($request->get('service') == 'vimeo') {
+        if (app()->environment() == 'testing') {
+            $gateway = new \Styde\Adapter\FakeVideoGateway();
+        } elseif ($request->get('service') == 'vimeo') {
             $gateway = $vimeo;
         } elseif ($request->get('service') == 'youtube') {
             $gateway = $youtube;
