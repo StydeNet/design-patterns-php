@@ -2,40 +2,18 @@
 
 namespace Styde\Adapter;
 
-class FakeVideo implements Video
+class FakeVideo extends AbstractVideo
 {
-    /**
-     * @var array
-     */
-    private $attributes;
-
     public function __construct(array $attributes)
     {
-        $this->attributes = $attributes;
-    }
+        $this->id = $attributes['id'];
 
-    public function getId()
-    {
-        return $this->attributes['id'];
-    }
+        $this->title = $attributes['title'];
 
-    public function getTitle()
-    {
-        return $this->attributes['title'];
-    }
+        $this->length = $attributes['length'];
 
-    public function getLength(): int
-    {
-        return $this->attributes['length'];
-    }
+        $this->views = $attributes['views'];
 
-    public function getLikes()
-    {
-        return $this->attributes['likes'];
-    }
-
-    public function getViews()
-    {
-        return $this->attributes['views'];
+        $this->likes = $attributes['likes'];
     }
 }

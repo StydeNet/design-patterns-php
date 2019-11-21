@@ -2,41 +2,19 @@
 
 namespace Styde\Adapter;
 
-class VimeoVideo implements Video
+class VimeoVideo extends AbstractVideo
 {
-    /**
-     * @var array
-     */
-    private $attributes;
-
     public function __construct(array $attributes)
     {
-        $this->attributes = $attributes;
-    }
+        $this->id = $attributes['id'];
 
-    public function getId()
-    {
-        return $this->attributes['id'];
-    }
+        $this->title = $attributes['video_title'];
 
-    public function getTitle()
-    {
-        return $this->attributes['video_title'];
-    }
+        $this->length = strtotime('1970-01-01 00:'.$attributes['video_length']);
 
-    public function getLength(): int
-    {
-        return strtotime('1970-01-01 00:'.$this->attributes['video_length']);
-    }
+        $this->views = $attributes['video_views'];
 
-    public function getLikes()
-    {
-        return $this->attributes['video_likes'];
-    }
-
-    public function getViews()
-    {
-        return $this->attributes['video_views'];
+        $this->likes = $attributes['video_likes'];
     }
 }
 

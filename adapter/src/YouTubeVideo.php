@@ -4,40 +4,18 @@ namespace Styde\Adapter;
 
 use YouTube\Video as AdapteeVideo;
 
-class YouTubeVideo implements Video
+class YouTubeVideo extends AbstractVideo
 {
-    /**
-     * @var Video
-     */
-    private $video;
-
     public function __construct(AdapteeVideo $video)
     {
-        $this->video = $video;
-    }
+        $this->id = $video->getId();
 
-    public function getId()
-    {
-        return $this->video->getId();
-    }
+        $this->title = $video->getTitle();
 
-    public function getTitle()
-    {
-        return $this->video->getTitle();
-    }
+        $this->length = $video->getLength();
 
-    public function getLength(): int
-    {
-        return $this->video->getLength();
-    }
+        $this->views = $video->getViews();
 
-    public function getLikes()
-    {
-        return $this->video->getLikes();
-    }
-
-    public function getViews()
-    {
-        return $this->video->getViews();
+        $this->likes = $video->getLikes();
     }
 }
