@@ -34,7 +34,7 @@ class Vimeo
      */
     public function request(string $url, array $parameters = [], $method = 'GET')
     {
-        sleep(rand(1, 2));
+//        sleep(rand(1, 2));
 
         if ($url == 'vimeo/3696') {
             return new Response([

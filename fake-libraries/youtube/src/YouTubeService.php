@@ -13,7 +13,7 @@ class YouTubeService
      */
     public function getVideo($videoId, Client $client): Video
     {
-        sleep(rand(1, 2));
+//        sleep(rand(1, 2));
 
         $client->connect();
 
