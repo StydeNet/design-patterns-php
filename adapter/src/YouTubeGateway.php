@@ -30,6 +30,12 @@ class YouTubeGateway implements VideoGateway
             throw new VideoNotFoundException($exception->getMessage());
         }
 
-        return new YouTubeVideo($video);
+        return new Video([
+            'id' => $video->getId(),
+            'title' => $video->getTitle(),
+            'length' => $video->getLength(),
+            'views' => $video->getViews(),
+            'likes' => $video->getLikes(),
+        ]);
     }
 }

@@ -8,7 +8,7 @@ class FakeVideoGateway implements VideoGateway
 
     public function addVideo(array $attributes)
     {
-        $this->videos[$attributes['id']] = new FakeVideo($attributes);
+        $this->videos[$attributes['id']] = new Video($attributes);
 
         return $this;
     }

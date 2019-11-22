@@ -24,6 +24,17 @@ class VimeoGateway implements VideoGateway
             throw new VideoNotFoundException;
         }
 
-        return new VimeoVideo($response->body);
+        return $this->createVideo($response->body);
+    }
+
+    protected function createVideo(array $attributes)
+    {
+        return new Video([
+            'id' => $attributes['id'],
+            'title' => $attributes['video_title'],
+            'length' => strtotime('1970-01-01 00:'.$attributes['video_length']),
+            'views' => $attributes['video_views'],
+            'likes' => $attributes['video_likes'],
+        ]);
     }
 }
