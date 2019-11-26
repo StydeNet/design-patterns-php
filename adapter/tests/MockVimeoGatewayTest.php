@@ -12,13 +12,13 @@ class MockVimeoGatewayTest extends TestCase
     /**
      * @var Vimeo
      */
-    protected $vimeo;
+    protected $gateway;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vimeo = new VimeoGateway(
+        $this->gateway = new VimeoGateway(
             new Vimeo(VIMEO_CLIENT_ID, VIMEO_CLIENT_SECRET)
         );
     }
@@ -28,7 +28,7 @@ class MockVimeoGatewayTest extends TestCase
     {
         // TODO: Upload video first?
 
-        $video = $this->vimeo->getVideo('3696');
+        $video = $this->gateway->getVideo('3696');
 
         $this->assertInstanceOf(Video::class, $video);
 
@@ -43,7 +43,7 @@ class MockVimeoGatewayTest extends TestCase
     function get_404_response_when_video_is_not_found()
     {
         try {
-            $video = $this->vimeo->getVideo('invalid-id');
+            $video = $this->gateway->getVideo('invalid-id');
         } catch (VideoNotFoundException $exception) {
             $this->assertTrue(true);
             return;
