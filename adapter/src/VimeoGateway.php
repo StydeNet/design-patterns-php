@@ -18,6 +18,18 @@ class VimeoGateway implements VideoGateway
 
     public function getVideo($id): Video
     {
+//        if ($id == '3696') {
+//            return $this->createVideo([
+//                'id' => '3696',
+//                'video_title' => 'Helper ddd',
+//                'video_length' => '03:45',
+//                'video_likes' => 10,
+//                'video_views' => 100,
+//            ]);
+//        } else {
+//            throw new VideoNotFoundException;
+//        }
+
         $response = $this->vimeo->request("vimeo/{$id}", [], 'GET');
 
         if ($response->status != 200) {
